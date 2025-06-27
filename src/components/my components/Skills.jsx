@@ -39,7 +39,7 @@ const techStack = {
 
 const Skills = () => {
   return (
-    <section className="font-main py-16 px-4 bg-gray-100 dark:bg-gray-900">
+    <section id="skills" className="font-main py-16 px-4 bg-gray-100 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-xl md:text-5xl font-bold text-center mb-12 text-gray-950 dark:text-white">
           My Tech Stack

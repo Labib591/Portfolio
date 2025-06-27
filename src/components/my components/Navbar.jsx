@@ -6,19 +6,34 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <Button variant='ghost'>About Me</Button>
+        <Button
+        onClick={() => 
+          {const element = document.getElementById("about")
+          element.scrollIntoView({behavior: "smooth"})
+          }}
+         variant='ghost'>About Me</Button>
       </li>
       <li>
-        <Button variant='ghost'>Projects</Button>
+        <Button
+        onClick={() => 
+          {const element = document.getElementById("projects")
+          element.scrollIntoView({behavior: "smooth"})
+          }}
+         variant='ghost'>Projects</Button>
       </li>
       <li>
-        <Button variant='ghost'>Skills</Button>
+        <Button
+        onClick={() => 
+          {const element = document.getElementById("skills")
+          element.scrollIntoView({behavior: "smooth"})
+          }}
+         variant='ghost'>Skills</Button>
       </li>
     </>
   );
 
   return (
-    <div className="navbar py-0 px-4 w-[60%] mx-auto border-2 border-orange-300 rounded-full mt-4 sticky z-50">
+    <div className="navbar py-0 px-4 w-[60%] mx-auto border-2 bg-orange-50/60 backdrop-blur-2xl border-orange-300 rounded-full mt-4 sticky top-2 z-50">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -40,7 +55,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-white rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             {links}
           </ul>
@@ -51,7 +66,12 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 flex gap-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <Button className="rounded-full bg-orange-500 hover:bg-orange-600">Contact Me</Button>
+        <Button
+        onClick={() => 
+          {const element = document.getElementById("contact")
+          element.scrollIntoView({behavior: "smooth"})
+          }}
+         className="rounded-full bg-orange-500 hover:bg-orange-600">Contact Me</Button>
       </div>
     </div>
   );
