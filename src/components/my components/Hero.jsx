@@ -17,7 +17,7 @@ const Hero = () => {
         </p>
 
         <div className="absolute top-50 inset-0 overflow-hidden z-10 pointer-events-none">
-          <div className="whitespace-nowrap animate-marquee text-[10vw] md:text-[8vw] font-extrabold text-black/10 tracking-tight">
+          <div className="whitespace-nowrap animate-marquee text-5xl md:text-[8vw] font-extrabold text-black/10 tracking-tight">
             <span className="mx-4">DESIGN & DEVELOP</span>
             <span className="mx-4">DESIGN & DEVELOP</span>
             <span className="mx-4">DESIGN & DEVELOP</span>
