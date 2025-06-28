@@ -78,7 +78,7 @@ const Projects = () => {
               <h3 className="font-semibold">Tech Stack:</h3>
               <div className="flex flex-wrap gap-2 mt-1">
                 {selectedProject.techStack.map((tech, idx) => (
-                  <span key={idx} className="bg-orange-400 px-2 py-1 rounded-full flex items-center text-sm text-gray-50">
+                  <span key={idx} className="bg-purple-400 px-2 py-1 rounded-full flex items-center text-sm text-gray-50">
                     {selectedProject.techIcon[idx]} <span className="ml-1">{tech}</span>
                   </span>
                 ))}
@@ -89,7 +89,7 @@ const Projects = () => {
             <p className="mb-4"><strong>Future Plans:</strong> {selectedProject.improvements}</p>
 
             <div className="flex gap-4">
-              <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer" className="text-orange-400 flex items-center gap-1 hover:underline">
+              <a href={selectedProject.liveLink} target="_blank" rel="noopener noreferrer" className="text-purple-400 flex items-center gap-1 hover:underline">
                 <FaExternalLinkAlt /> Live
               </a>
               <a href={selectedProject.githubLink} target="_blank" rel="noopener noreferrer" className="text-gray-800 flex items-center gap-1 hover:underline">

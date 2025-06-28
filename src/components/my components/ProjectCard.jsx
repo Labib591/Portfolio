@@ -1,6 +1,7 @@
-// import { P } from "framer-motion/dist/types.d-BSoEx4Ea";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const ProjectCard = ({
   image,
@@ -12,8 +13,16 @@ const ProjectCard = ({
   githubLink,
   onViewDetails 
 }) => {
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // duration of animation in ms
+      once: false,     // whether animation should happen only once
+    });
+  }, []);
+
   return (
-    <div className="flex flex-col md:flex-row bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:scale-105 transition-all duration-300">
+    <div data-aos="fade-left" className="flex flex-col md:flex-row bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:scale-105 transition-all duration-300">
       {/* Left Side - Image */}
       <div className="md:w-1/2 w-full h-64 md:h-auto">
         <img src={image} alt={title} className="object-cover w-full h-full" />
@@ -30,7 +39,7 @@ const ProjectCard = ({
               {techStack.map((tech, index) => (
                 <span
                   key={index}
-                  className="bg-orange-400 flex items-center text-gray-50 px-2 py-1 rounded-full text-sm"
+                  className="bg-purple-400 flex items-center text-gray-50 px-2 py-1 rounded-full text-sm"
                 >
                   {techIcon[index]}
                   {tech}
@@ -46,7 +55,7 @@ const ProjectCard = ({
             href={liveLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-orange-400 flex items-center gap-1 hover:underline"
+            className="text-purple-400 flex items-center gap-1 hover:underline"
           >
             <FaExternalLinkAlt /> Live
           </a>
@@ -62,7 +71,7 @@ const ProjectCard = ({
 
         <button
           onClick={onViewDetails}
-          className="mt-4 bg-orange-500 rounded-full border-4 border-orange-200 text-white px-4 py-2 hover:bg-orange-600"
+          className="mt-4 bg-purple-500 rounded-full border-4 border-purple-200 text-white px-4 py-2 hover:bg-purple-600"
         >
           View Details
         </button>

@@ -1,11 +1,17 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "daisyui";
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
 @theme{
-  --font-main: "Red Hat Display", sans-serif;
+  --font-main: "Geist", sans-serif;
+  --font-mono : "Geist Mono", monospace
+}
+
+body {
+  overflow-x: hidden;
 }
 
 @theme inline {
