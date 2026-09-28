@@ -1,0 +1,299 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BONE & INK
+
+   A light editorial field. Near-monochrome, one signal colour used almost
+   never, enormous display type, and every bit of motion driven by scroll
+   position rather than by hover.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Bricolage Grotesque — variable across weight, WIDTH and optical size.
+   One family covers the 280px hero numeral and the 11px corner label, which is
+   why there is no second display face. */
+@font-face {
+  font-family: "Display";
+  src: url("/fonts/display.woff2") format("woff2-variations");
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+
+/* Geist — body and UI. */
+@font-face {
+  font-family: "Text";
+  src: url("/fonts/text.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* Geist Mono — indices, timestamps, coordinates, live values. Measurement
+   only; never decoration. */
+@font-face {
+  font-family: "Mono";
+  src: url("/fonts/mono.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@theme {
+  /* ── the field ──────────────────────────────────────────────────────────
+     Three steps of bone and no more. The ground is the design; surfaces are
+     separated by rules and space, not by stacked grey boxes. */
+  --color-bone: #eceae6;     /* the ground                                */
+  --color-bone-hi: #f4f3f0;  /* raised: an image well, an input           */
+  --color-bone-lo: #dedbd5;  /* recessed: rules, dividers, inactive        */
+
+  /* ── the mark ───────────────────────────────────────────────────────────
+     MEASURED against bone. Obey these, they are not vibes:
+       ink       16.48  everything that matters
+       ink-2      9.49  secondary prose
+       meta       4.50  the smallest passing grey. Do not lighten it.
+       faint      2.15  NEVER text. Rules and disabled fills only.          */
+  --color-ink: #0a0a0a;
+  --color-ink-2: #3a3a38;
+  --color-meta: #6a6a6a;
+  --color-faint: #a3a19c;
+
+  /* ── the signal ─────────────────────────────────────────────────────────
+     Under 5% of pixels. It marks one thing per screen: the live value, the
+     current item, the thing you are meant to click.
+
+     MEASURED, so obey it:
+       signal on bone       2.95  FILLS ONLY. Never text on the light ground.
+       signal-deep on bone  4.54  the only signal that may set text on bone.
+       signal on ink        5.58  on a dark field, the bright one is correct. */
+  --color-signal: #ff3b2f;
+  --color-signal-deep: #c72e25;
+
+  /* ── type ──────────────────────────────────────────────────────────────── */
+  --font-display: "Display", "Arial Narrow", system-ui, sans-serif;
+  --font-text: "Text", system-ui, -apple-system, sans-serif;
+  --font-mono: "Mono", ui-monospace, "SF Mono", monospace;
+
+  /* Fluid, because this world lives or dies on scale. The small end is a
+     phone at 390px, the large end a 1600px display. */
+  --text-micro: 11px;
+  --text-label: 12px;
+  --text-ui: 14px;
+  --text-body: 16px;
+  --text-lead: clamp(18px, 0.7vw + 15px, 22px);
+  --text-h3: clamp(23px, 1.6vw + 16px, 36px);
+  --text-h2: clamp(34px, 4.2vw + 12px, 76px);
+  --text-h1: clamp(46px, 8.4vw + 6px, 148px);
+  --text-mega: clamp(84px, 17vw, 300px);
+
+  /* ── the grid ───────────────────────────────────────────────────────────
+     12 columns, and the page gutter is a real token so corner meta-labels and
+     section content share one margin everywhere. */
+  --gutter: clamp(18px, 3.4vw, 64px);
+  --col: 12;
+}
+
+@layer base {
+  :root {
+    /* Motion. One ease for entrances, one for exits, and a scrub for anything
+       tied to scroll position (which is most of this site). */
+    --ease: cubic-bezier(0.16, 0.9, 0.24, 1);
+    --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+    --dur-fast: 180ms;
+    --dur: 420ms;
+    --dur-slow: 900ms;
+
+    color-scheme: light;
+    caret-color: var(--color-signal-deep);
+    accent-color: var(--color-signal-deep);
+    scrollbar-color: var(--color-faint) transparent;
+    scrollbar-width: thin;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    /* Lenis drives scrolling; the native smooth behaviour fights it. */
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-text);
+    font-size: var(--text-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
+  }
+
+  /* ── browser surfaces ────────────────────────────────────────────────────
+     The parts nobody themes. Cheapest signal that a page was built. */
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    text-shadow: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-faint);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-meta);
+    background-clip: content-box;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-signal-deep);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::placeholder {
+    color: var(--color-meta);
+    opacity: 1;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Every number on this site is read as a quantity, so figures line up. */
+  .tnum,
+  time,
+  [data-readout] {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* The page margin. Everything aligns to this, including the corner labels. */
+  .gutter {
+    padding-inline: var(--gutter);
+  }
+
+  /* ── meta label ─────────────────────────────────────────────────────────
+     The tiny mono text pinned at the extremes of the screen — index, section
+     name, time, status. It is measurement, which is the only thing mono is
+     allowed to do here. */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-meta);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── display sizes ──────────────────────────────────────────────────────
+     Width and optical size are set alongside weight, because Bricolage has
+     both axes and ignoring them wastes the face. */
+  .d-mega {
+    font-family: var(--font-display);
+    font-size: var(--text-mega);
+    font-variation-settings: "wght" 600, "wdth" 85, "opsz" 96;
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+  }
+
+  .d-h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-variation-settings: "wght" 600, "wdth" 92, "opsz" 72;
+    line-height: 0.9;
+    letter-spacing: -0.042em;
+  }
+
+  .d-h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-variation-settings: "wght" 550, "wdth" 96, "opsz" 48;
+    line-height: 0.96;
+    letter-spacing: -0.03em;
+  }
+
+  .d-h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-variation-settings: "wght" 500, "wdth" 100, "opsz" 24;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+  }
+
+  /* A hairline. One weight of rule on the whole site. */
+  .rule {
+    border-color: var(--color-bone-lo);
+  }
+
+  /* Text that reveals line-by-line. The mask is what makes it read as type
+     rising out of the page rather than fading in.
+
+     The padding/margin pair gives the mask room for descenders: at
+     line-height 0.9 the line box is shorter than the glyphs, so a plain
+     overflow:hidden guillotines every p, g and y. The negative margin cancels
+     the padding so layout is unchanged. */
+  .reveal-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.16em;
+    margin-bottom: -0.16em;
+  }
+  .reveal-line > *,
+  .reveal-line > * > * {
+    display: block;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
